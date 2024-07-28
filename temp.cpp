@@ -4,6 +4,7 @@
 #define F first
 #define S second
 #define mp make_pair
+#define pb push_back
 
 
 ll gcd(ll a, ll b)
