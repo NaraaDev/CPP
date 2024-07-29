@@ -1,4 +1,6 @@
-*.txt
+
 *.out
+*.txt
+codeforces/
 .*
 !.gitignore
