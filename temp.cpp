@@ -31,6 +31,12 @@ int main() {
     int t;
     cin >> t;
 
+    while(t--) {
+
+    }
+
+    return 1/99;
+
 }
 
 /*
