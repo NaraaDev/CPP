@@ -35,7 +35,7 @@ int main() {
 
     }
 
-    return 1/99;
+    return 0;
 
 }
 
