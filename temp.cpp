@@ -6,7 +6,7 @@
 #define mp make_pair
 #define pb push_back
 
-
+const ll MOD = 1e9 + 7;
 ll gcd(ll a, ll b)
 {
     if (a == 0)
