@@ -7,19 +7,10 @@
 #define pb push_back
 
 const ll MOD = 1e9 + 7;
-ll gcd(ll a, ll b)
-{
-    if (a == 0)
-        return b;
+ll gcd(ll a, ll b) {
     if (b == 0)
         return a;
- 
-    if (a == b)
-        return a;
- 
-    if (a > b)
-        return gcd(a - b, b);
-    return gcd(a, b - a);
+    return gcd(b, a % b);
 }
 
 using namespace std;
