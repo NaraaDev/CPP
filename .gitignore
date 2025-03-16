@@ -3,5 +3,4 @@
 *.txt
 codeforces/
 .*
-A.cpp
 !.gitignore
