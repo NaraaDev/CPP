@@ -1,5 +1,5 @@
 #include<bits/stdc++.h>
-
+//https://codeforces.com/gym/105657/problem/K
 using namespace std;
 
 int main() {
