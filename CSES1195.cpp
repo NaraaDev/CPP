@@ -1,4 +1,5 @@
-#include<bits/stdc++.h>
+#include <bits/stdc++.h>
+using namespace std;
 
 #define ll long long
 #define F first
@@ -6,76 +7,49 @@
 #define mp make_pair
 #define pb push_back
 
-const ll MOD = 1e9 + 7;
-ll gcd(ll a, ll b) {
-    if (b == 0)
-        return a;
-    return gcd(b, a % b);
-}
-
-using namespace std;
-using pii = pair<int, int>;
-
-const int N = 1e5 + 5;
-
-vector<vector<pair<int, int> > > nodes(N);
-
-vector<ll> d(N);
-vector<int> maxV;
-
-void dijkstra(int n) {
-    d[n] = 0;
-    d.assign(n, LLONG_MAX);
-    maxV.assign(n, - 1);
-    priority_queue<pii, vector<pii>, greater<pii>> q;
-
-    q.push({0, n});
-
-    while(!q.empty()) {
-        int v = q.top().second;
-        int d_v = q.top().first;
-        q.pop();
-
-        if(d_v != d[v])
-            continue;
-        
-        for(auto edge: nodes[v]) {
-            int to = edge.first;
-            int len = edge.second;
-
-            if(d[v] + len < d[to]) {
-                d[to] = d[v] + len;
-                q.push({d[to], to});
-                maxV[to] = v;
-            }
-        }
-
-    }
-
-}
+const ll INF = 1e18;
 
 int main() {
-
     ios::sync_with_stdio(false);
     cin.tie(0);
-    
+
     int n, m;
     cin >> n >> m;
-    
-    for(int i = 1; i <= m; i++) {
+
+    vector<vector<pair<int, int>>> adj(n + 1);
+    for(int i = 0; i < m; i++) {
         int a, b, cost;
         cin >> a >> b >> cost;
-        nodes[a].pb(mp(b,cost));
-        nodes[b].pb(mp(a,cost));
-        
+        adj[a].pb(mp(b, cost));
     }
 
-    dijkstra(n);
-    
-    cout << d[1] << ' ';
+    vector<vector<ll>> dist(n + 1, vector<ll>(2, INF));
+    dist[1][0] = 0;
 
+    priority_queue<tuple<ll, int, int>, vector<tuple<ll, int, int>>, greater<>> pq;
+    pq.push({0, 1, 0});
+
+    while (!pq.empty()) {
+        auto [cost, u, used] = pq.top(); pq.pop();
+        if (cost > dist[u][used]) continue;
+
+        for (auto [v, w] : adj[u]) {
+            if (dist[v][used] > dist[u][used] + w) {
+                dist[v][used] = dist[u][used] + w;
+                pq.push({dist[v][used], v, used});
+            }
+            if (used == 0) {
+                ll discounted = dist[u][used] + w / 2;
+                if (dist[v][1] > discounted) {
+                    dist[v][1] = discounted;
+                    pq.push({dist[v][1], v, 1});
+                }
+            }
+        }
+    }
+
+    cout << dist[n][1] << '\n';
     return 0;
-
 }
 
 /*

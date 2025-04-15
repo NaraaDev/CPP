@@ -6,6 +6,9 @@
 #define mp make_pair
 #define pb push_back
 
+using namespace std;
+
+
 const ll MOD = 1e9 + 7;
 ll gcd(ll a, ll b) {
     if (b == 0)
@@ -13,7 +16,6 @@ ll gcd(ll a, ll b) {
     return gcd(b, a % b);
 }
 
-using namespace std;
 
 int main() {
 
