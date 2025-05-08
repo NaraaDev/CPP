@@ -33,6 +33,9 @@ int main() {
 }
 
 /*
-RILY <3
-NEVER GIVE UP!!!
+N - ee shalga
+Bitgii buuj ug
+Сая сая мөрөөдөл минь удахгүй нэг нэгээрэ биелэж эхлэх болно.
+Whatever our souls are made of, hers and mine are the same.
+People aren’t prisoners of fate, they’re prisoners of their own minds.
 */
