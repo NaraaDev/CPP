@@ -1,11 +1,13 @@
 #include<bits/stdc++.h>
 
-
 #define ll long long
 #define F first
 #define S second
 #define mp make_pair
 #define pb push_back
+
+using namespace std;
+
 
 const ll MOD = 1e9 + 7;
 ll gcd(ll a, ll b) {
@@ -14,40 +16,35 @@ ll gcd(ll a, ll b) {
     return gcd(b, a % b);
 }
 
-using namespace std;
 
 int main() {
 
     ios::sync_with_stdio(false);
     cin.tie(0);
-    
-    ll ans = 0;
-
-    set<int> s;
-
     int n, k;
     cin >> n >> k;
 
-    int a[n];
 
+    vector<int> a(n);
     for(int i = 0; i < n; i++)
         cin >> a[i];
-    
-    for(int i = 0; i < k; i++) {
-        s.insert(a[i]);
-    }
-    if(s.size() >= k) {
-        ans += max((ll)((s.size() - k) * s.size()), (ll)1);
-    }
-    for(int i = k; i < n; i++) {
-        s.insert(a[i]);
-        if(s.size() >= k) {
-            ans += max((ll)((s.size() - k) * s.size()), (ll)1);
+
+    ll ans = 0;
+
+    int left = 0;
+    map<int, int> mp;
+    for(int right = 0; right < n; right++) {
+        mp[a[right]]++;
+        while(mp.size() > k) {
+            mp[a[left]]--;
+            if(mp[a[left]] == 0) 
+                mp.erase(a[left]);
+            left++;
         }
+        ans += (right - left + 1);
     }
 
-    cout << ans;    
-
+    cout << ans;
     return 0;
 
 }
