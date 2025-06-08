@@ -16,6 +16,9 @@ ll gcd(ll a, ll b) {
     return gcd(b, a % b);
 }
 
+void uCan() {
+
+}
 
 int main() {
 
@@ -25,7 +28,7 @@ int main() {
     cin >> t;
 
     while(t--) {
-
+        uCan();
     }
 
     return 0;
