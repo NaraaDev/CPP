@@ -10,6 +10,7 @@ using namespace std;
 
 
 const ll MOD = 1e9 + 7;
+const int N = 2e5 + 5;
 ll gcd(ll a, ll b) {
     if (b == 0)
         return a;
