@@ -1,5 +1,4 @@
 #include<bits/stdc++.h>
-#include <ext/pb_ds/assoc_container.hpp>
 
 
 #define ll long long
@@ -9,9 +8,6 @@
 #define pb push_back
 
 using namespace std;
-template<typename T>
-using namespace __gnu_pbds;
-using ordered_set = tree<T, null_type, less<T>, rb_tree_tag, tree_order_statistics_node_update>;
 
 const ll MOD = 1e9 + 7;
 const int N = 2e5 + 5;
