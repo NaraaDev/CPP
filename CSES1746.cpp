@@ -1,36 +1,39 @@
-#include<bits/stdc++.h>
-
-#define ll long long
-#define F first
-#define S second
-#define mp make_pair
-#define pb push_back
-
-const ll MOD = 1e9 + 7;
-ll gcd(ll a, ll b) {
-    if (b == 0)
-        return a;
-    return gcd(b, a % b);
-}
-
+#include <bits/stdc++.h>
 using namespace std;
 
+const int MOD = 1e9 + 7;
 int main() {
-
-    ios::sync_with_stdio(false);
-    cin.tie(0);
     int n, m;
     cin >> n >> m;
-    ll a[n];
+    vector<int> x(n + 1);
+    for (int i = 1; i <= n; ++i) {
+        cin >> x[i];
+    }
 
-    for (int i = 0; i < n; i++)
-        cin >> a[i];
+    vector<vector<int>> dp(n + 1, vector<int>(m + 2, 0));
 
+    if (x[1] == 0) {
+        for (int v = 1; v <= m; ++v) dp[1][v] = 1;
+    } else {
+        dp[1][x[1]] = 1;
+    }
+
+    for (int i = 2; i <= n; ++i) {
+        if (x[i] == 0) {
+            for (int v = 1; v <= m; ++v) {
+                dp[i][v] = ((dp[i - 1][v - 1] + dp[i - 1][v]) % MOD + dp[i - 1][v + 1]) % MOD;
+            }
+        } else {
+            int v = x[i];
+            dp[i][v] = ((dp[i - 1][v - 1] + dp[i - 1][v]) % MOD + dp[i - 1][v + 1]) % MOD;
+        }
+    }
+
+    int result = 0;
+    for (int v = 1; v <= m; ++v) {
+        result = (result + dp[n][v]) % MOD;
+    }
+
+    cout << result << endl;
     return 0;
-
 }
-
-/*
-RILY <3
-NEVER GIVE UP!!!
-*/
