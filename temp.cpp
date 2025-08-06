@@ -42,4 +42,6 @@ Bitgii buuj ug
 Сая сая мөрөөдөл минь удахгүй нэг нэгээрэ биелэж эхлэх болно.
 Whatever our souls are made of, hers and mine are the same.
 People aren’t prisoners of fate, they’re prisoners of their own minds.
+Whatever happened, Whatever was, Whatever you endured,
+Whatever changed — You can do it, you will improve.
 */
