@@ -52,10 +52,8 @@ void uCan() {
     vector<ll > dp(coords, 0);
 
     for(int i = 0; i < coords; i++) {
-        if(i > 0) {
-            dp[i] = dp[i - 1];
-        }
-
+        dp[i] = i > 0 ? dp[i - 1] : 0;
+        
         for(auto p: project[i]) {
             dp[i] = max(dp[i], dp[p.first] + p.second);
         }
