@@ -17,45 +17,102 @@ ll gcd(ll a, ll b) {
     return gcd(b, a % b);
 }
 
+struct Range {int l, r, id;};
+
+struct Fenwick {
+    int n; vector<int> bit;
+    Fenwick(int n = 0): n(n), bit(n + 1, 0) {}
+    
+    void add(int i, int v = 1) {
+        for(; i <= n; i += i & -i)
+            bit[i] += v;
+    }
+
+    int sum(int i) {
+        int s = 0;
+        for(; i > 0; i -= i & -i)
+            s += bit[i];
+        
+        return s;
+    }
+
+    int rangeSum(int l, int r) {
+        if(l > r) return 0;
+        return sum(r) - sum(l - 1);
+    }
+
+};
+
 void uCan() {
 
     int n;
     cin >> n;
-
-    vector<pair<int, int> > nums(n);
-
-    for(int i = 0; i < n; i++)
-        cin >> nums[i].F >> nums[i].S;
-
-    sort(nums.begin(), nums.end());
-
-    vector<int> bagtaasan(n, 0), bagtsan(n, 0);
-
+    vector<Range> nums(n);
+    vector<int> rs;
     for(int i = 0; i < n; i++) {
-        auto left = lower_bound(nums.begin(), nums.end(), mp(nums[i].F, 0), [](auto &a, auto &b) {
-            return a.first < b.first;
-        });
-        auto right = lower_bound(nums.begin(), nums.end(), mp(0, nums[i].S), [](auto &a, auto &b) {
-            return a.second > b.second;
-        });
-        if(right == nums.end()) {
-            cout << i << "sdas\n";
-        }
-        if(left == nums.begin()) {
-            cout << i << "sda\n";
-        }
+        cin >> nums[i].l >> nums[i].r;
+        nums[i].id = i;
+        rs.pb(nums[i].r);
+    }
+        
+    sort(rs.begin(), rs.end());
+    rs.erase(unique(rs.begin(), rs.end()), rs.end());
 
-        else if(left != nums.begin() && right != nums.end()) {
-            cout << i << ' ' << (left - nums.begin()) << ' ' << (right - nums.begin()) << '\n';
-        }
+    auto getR = [&](int x) {
+        return int(lower_bound(rs.begin(), rs.end(), x) - rs.begin()) + 1;
+    };
+
+    for(auto &p: nums) {
+        p.r = getR(p.r);
     }
 
+    vector<int> contains(n, 0), contained(n, 0);
+
+    {
+        auto b = nums;
+        sort(b.begin(), b.end(), [](const Range &x, const Range &y) {
+            if(x.l != y.l) return x.l < y.l;
+            return x.r > y.r;
+        });
+
+        Fenwick bit((int)rs.size());
+
+        for(auto &p: b) {
+            int total_prev = bit.sum(rs.size());
+            int less_than_r = bit.sum(p.r - 1);
+
+            contained[p.id] = total_prev - less_than_r;
+            bit.add(p.r, 1);
+        }
+
+    }
+
+    {
+        auto b = nums;
+
+        sort(b.begin(), b.end(), [](const Range &x, const Range &y) {
+            if(x.l != y.l) return x.l > y.l;
+            return x.r < y.r;
+        });
+
+        Fenwick bit((int)(rs.size()));
+
+        for(auto &p: b) {
+            contains[p.id] = bit.sum(p.r);
+            bit.add(p.r, 1);
+        }
+
+    }
+
+    for(int i = 0; i < n; i++) {
+        cout << contains[i] << ' ';
+    }
+
+    cout << '\n';
 
     for(int i = 0; i < n; i++)
-        cout << bagtaasan[i] << " \n"[i == n-1];
-
-    for(int i = 0; i < n; i++)
-        cout << bagtsan[i] << ' ';
+        cout << contained[i] << ' ';
+    
 
 }
 
