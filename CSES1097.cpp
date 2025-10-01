@@ -10,7 +10,7 @@
 using namespace std;
 
 const ll MOD = 1e9 + 7;
-const int N = 2e5 + 5;
+const int N = 5005;
 ll gcd(ll a, ll b) {
     if (b == 0)
         return a;
@@ -18,15 +18,33 @@ ll gcd(ll a, ll b) {
 }
 
 
-void uCan() {
+ll dp[N][N];
 
+void uCan() {
     int n;
     cin >> n;
-    
+    ll a[n];
+    for(int i = 0; i < n; i++) cin >> a[i];
 
-    
-    
+    for(int i = 0; i < n; i++) dp[i][i] = a[i];
+
+    for(int len = 2; len <= n; len++) {
+        for(int l = 0; l + len - 1 < n; l++) {
+            int r = l + len - 1;
+            if(len == 2) {
+                dp[l][r] = max(a[l], a[r]);
+            } else {
+                dp[l][r] = max(
+                    a[l] + min(dp[l+2][r], dp[l+1][r-1]),
+                    a[r] + min(dp[l][r-2], dp[l+1][r-1])
+                );
+            }
+        }
+    }
+
+    cout << dp[0][n-1] << "\n";
 }
+
 
 int main() {
 
