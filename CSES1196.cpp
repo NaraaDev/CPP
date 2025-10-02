@@ -1,14 +1,14 @@
 #include<bits/stdc++.h>
-
-
+ 
+ 
 #define ll long long
 #define F first
 #define S second
 #define mp make_pair
 #define pb push_back
-
+ 
 using namespace std;
-
+ 
 const ll MOD = 1e9 + 7;
 const int N = 2e5 + 5;
 ll gcd(ll a, ll b) {
@@ -16,55 +16,65 @@ ll gcd(ll a, ll b) {
         return a;
     return gcd(b, a % b);
 }
-
-
-
+ 
+struct Node {
+    int to;
+    ll len;
+};
+ 
 void uCan() {
-
-    int n,m, k;
+    int n, m, k;
     cin >> n >> m >> k;
-
-    vector<vector<pair<int, int> > > nodes(n + 1);
-
-    int u, v, c;
-
-    for(int i = 0; i < m; i++) {
-        cin >> u >> v >> c;
-        nodes[u].pb({v, c});
+ 
+    vector<vector<Node>> nodes(n + 1);
+    for (int i = 0; i < m; i++) {
+        int u, v, l;
+        cin >> u >> v >> l;
+        nodes[u].push_back({v, l});
     }
-
-    vector<ll> ans;
-
-    queue<tuple<int, int, int> > q;
-
-    q.push(make_tuple(1, 0, 1));
-    vector<map<pair<int, int>, int> > checkCycle(n + 1);
-
-    while(!q.empty()) {
-
-        auto [par, coin, len] = q.front(); q.pop();
-
-        for(pair<int, int>  node: nodes[par]) {
-            if(checkCycle[node.first].find({par, len + 1}) == checkCycle[node.first].end()) {
-                checkCycle[node.first][{par, len + 1}] = 1;
-                q.push(make_tuple(node.first, node.second + coin, len + 1));
-                if(node.first == n) {
-                    ans.push_back(node.second + coin);
+ 
+    vector<priority_queue<ll> > costs(n + 1);
+    priority_queue<pair<ll, int>, vector<pair<ll,int>>, greater<pair<ll, int> >> pq;
+ 
+    pq.push({0, 1});
+    costs[1].push(0);
+ 
+    while (!pq.empty()) {
+        auto [d, u] = pq.top();
+        pq.pop();
+        if(costs[u].top() < d) continue;
+        for (auto &edge : nodes[u]) {
+            ll nd = d + edge.len;
+ 
+            if ((int)costs[edge.to].size() < k) {
+                costs[edge.to].push(nd);
+                pq.push({nd, edge.to});
+            } else {
+                if (nd < costs[edge.to].top()) {
+                    costs[edge.to].pop();
+                    costs[edge.to].push(nd);
+                    pq.push({nd, edge.to});
                 }
             }
         }
+    }
+ 
+    vector<ll> ans;
 
+    while(!costs[n].empty()) {
+        ans.pb(costs[n].top());
+        costs[n].pop();
     }
 
     sort(ans.begin(), ans.end());
-
-    for(ll num: ans)
-        cout << num << ' ';
-
+    for (auto x : ans) cout << x << " ";
+    cout << "\n";
+ 
 }
-
+ 
+ 
 int main() {
-
+ 
     ios::sync_with_stdio(false);
     cin.tie(nullptr);
     int t;
@@ -73,11 +83,11 @@ int main() {
     while(t--) {
         uCan();
     }
-
+ 
     return 0;
-
+ 
 }
-
+ 
 /*
 N - ee shalga
 Bitgii buuj ug
