@@ -1,75 +1,73 @@
-#include<bits/stdc++.h>
-
-
-#define ll long long
-#define F first
-#define S second
-#define mp make_pair
-#define pb push_back
-
+	#include <algorithm>
+#include <iostream>
+#include <set>
 using namespace std;
+using ll = long long;
+const ll mn = (ll)2e5 + 5;
 
-const ll MOD = 1e9 + 7;
-const int N = 2e5 + 5;
-ll gcd(ll a, ll b) {
-    if (b == 0)
-        return a;
-    return gcd(b, a % b);
+ll N, K;
+ll arr[mn];
+multiset<ll> up;
+multiset<ll> low;
+ll sLow, sUp;
+
+void ins(ll val) {
+	ll a = *low.rbegin();
+	if (a < val) {
+		up.insert(val);
+		sUp += val;
+		if (up.size() > K / 2) {
+			ll moving = *up.begin();
+			low.insert(moving);
+			sLow += moving;
+			up.erase(up.find(moving));
+			sUp -= moving;
+		}
+	} else {
+		low.insert(val);
+		sLow += val;
+		if (low.size() > (K + 1) / 2) {
+			ll moving = *low.rbegin();
+			up.insert(*low.rbegin());
+			sUp += moving;
+			low.erase(low.find(*low.rbegin()));
+			sLow -= moving;
+		}
+	}
 }
 
-void uCan() {
-
-    vector<int> ans;
-
-    int n, k;
-    cin >> n >> k;
-
-    vector<ll> nums(n);
-
-    for(int i = 0; i < n; i++)
-        cin >> nums[i];
-
-    ll sum = 0;
-
-    for(int i = 0; i < k; i++)
-        sum += nums[i];
-
-    ans.pb(sum / k);
-
-    for(int i = k; i < n; i++) {
-        sum += nums[i];
-        sum -= nums[i - k];
-        ans.pb(cur);
-    }
-
-    for(int i = 0; i < ans.size(); i++) {
-        cout << ans[i] << ' ';
-    }
-
+void er(ll val) {
+	if (up.find(val) != up.end()) up.erase(up.find(val)), sUp -= val;
+	else low.erase(low.find(val)), sLow -= val;
+	if (low.empty()) {
+		ll moving = *up.begin();
+		low.insert(*up.begin());
+		sLow += moving;
+		up.erase(up.find(*up.begin()));
+		sUp -= moving;
+	}
 }
+
+ll med() { return (K % 2 == 0) ? 0 : (*low.rbegin()); }
 
 int main() {
-
-    ios::sync_with_stdio(false);
-    cin.tie(nullptr);
-    int t;
-    // cin >> t;
-    t = 1;
-
-    while(t--) {
-        uCan();
-    }
-
-    return 0;
-
+	cin >> N >> K;
+	for (ll i = 0; i < N; i++) cin >> arr[i];
+	low.insert(arr[0]);
+	sLow += arr[0];
+	for (ll i = 1; i < K; i++) ins(arr[i]);
+	cout << sUp - sLow + med();
+	if (N != 1) cout << " ";
+	for (ll i = K; i < N; i++) {
+		if (K == 1) {
+			ins(arr[i]);
+			er(arr[i - K]);
+		} else {
+			er(arr[i - K]);
+			ins(arr[i]);
+		}
+		cout << sUp - sLow + med();
+		if (i != N - 1) cout << " ";
+	}
+	cout << endl;
 }
-
-/*
-N - ee shalga
-Bitgii buuj ug
-Сая сая мөрөөдөл минь удахгүй нэг нэгээрэ биелэж эхлэх болно.
-Whatever our souls are made of, hers and mine are the same.
-People aren’t prisoners of fate, they’re prisoners of their own minds.
-Whatever happened, Whatever was, Whatever you endured,
-Whatever changed — You can do it, you will improve.
-*/
