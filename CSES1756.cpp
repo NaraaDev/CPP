@@ -17,48 +17,27 @@ ll gcd(ll a, ll b) {
     return gcd(b, a % b);
 }
 
-
-void dfs(int node, int parent, vector<vector<int> > &nodes, vector<bool> &visited, int cnt, int &ans) {
-
-    if(visited[node] && cnt > 2) {
-        ans = min(ans, cnt);
-        return;
-    }
-
-    if(visited[node]) {
-        return;
-    }
-
-    visited[node] = true;
-    for(auto to: nodes[node]) {
-        if(ans > cnt + 1 && to != parent && to != node) {
-            dfs(to, node ,nodes, visited, cnt + 1, ans);
-        }
-    }
-
-    visited[node] =false;
-
-}
-
 void uCan() {
 
     int n, m;
     cin >> n >> m;
 
-    vector<vector<int> > nodes(n + 1);
-
     int u, v;
+
+    vector<pair<int, int> > ans;
+
     for(int i = 0; i < m; i++) {
         cin >> u >> v;
-        nodes[u].pb(v);
-        nodes[v].pb(u);
+        if(u > v) swap(u, v);
+
+        ans.pb({u, v});
     }
-    int ans = INT_MAX;
-    vector<bool> visited(n + 1, false);
-    for (int i = 1; i <= n; i++) {
-        dfs(i, -1, nodes, visited, 0, ans);
-    }
-    cout << (ans == INT_MAX ? -1 : ans);
+
+    sort(ans.begin(), ans.end());
+
+    for(int i = 0; i < m; i++)
+        cout << ans[i].F << ' ' << ans[i].S << '\n';
+
 }
 
 int main() {
