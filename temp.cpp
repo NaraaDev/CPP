@@ -2,22 +2,37 @@
 
 
 #define ll long long
-#define F first
-#define S second
+#define ff first
+#define ss second
 #define mp make_pair
 #define pb push_back
 
 using namespace std;
 
-const ll MOD = 1e9 + 7;
-const int N = 2e5 + 5;
+
 ll gcd(ll a, ll b) {
     if (b == 0)
         return a;
     return gcd(b, a % b);
 }
 
-void uCan() {
+ll binpow(ll a, ll b) {
+
+    ll res = 1;
+
+    while(b > 0) {
+        if(b & 1) {
+            res = res * a;
+        }
+        a = a * a;
+        b /= 2;
+    }
+    return res;
+}
+
+void solve() {
+
+    
 
 }
 
@@ -25,11 +40,11 @@ int main() {
 
     ios::sync_with_stdio(false);
     cin.tie(nullptr);
-    int t;
+    int t = 1;
     cin >> t;
 
     while(t--) {
-        uCan();
+        solve();
     }
 
     return 0;
