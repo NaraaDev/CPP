@@ -4,3 +4,4 @@
 codeforces/
 .*
 !.gitignore
+A.cpp
