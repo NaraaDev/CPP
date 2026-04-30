@@ -30,9 +30,35 @@ ll binpow(ll a, ll b) {
     return res;
 }
 
+const int MOD = 676767677;
+
 void solve() {
 
-    cout << "hello\n";
+    int n;
+    cin >> n;
+
+    vector<ll> nums(n);
+    
+    for(auto &p: nums)
+        cin >> p;
+
+    ll ans = 0;
+    sort(nums.begin(), nums.end());
+    
+    int left = 0, right = n - 1;
+    while(left < right) {
+        if(nums[left] == 1) {
+            ans += nums[right];
+            left++;
+            right--;
+        } else break;
+    }
+
+    for(int i = left; i <= right; i++) {
+        ans += nums[i];
+    }
+
+    cout << ans << '\n';
 
 }
 
