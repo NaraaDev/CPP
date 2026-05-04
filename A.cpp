@@ -30,35 +30,41 @@ ll binpow(ll a, ll b) {
     return res;
 }
 
-const int MOD = 676767677;
-
 void solve() {
 
-    int n;
-    cin >> n;
+    int n, target;
+    cin >> n >> target;
 
-    vector<ll> nums(n);
-    
-    for(auto &p: nums)
-        cin >> p;
+    vector<pair<int, int> > nums(n);
 
-    ll ans = 0;
+    for(int i = 0; i < n; i++) {
+        cin >> nums[i].first;
+        nums[i].second = i;
+    }
+
     sort(nums.begin(), nums.end());
-    
+
     int left = 0, right = n - 1;
-    while(left < right) {
-        if(nums[left] == 1) {
-            ans += nums[right];
-            left++;
-            right--;
-        } else break;
+    bool found = false;
+    while(left <= right) {
+        int mid = (left + right) / 2;
+        if(nums[mid].first > target) {
+            right = mid - 1;
+        } else if(nums[mid].first == target) {
+            left = nums[mid].second;
+            found = true;
+            break;
+        } else {
+            left = mid + 1;
+        }
     }
-
-    for(int i = left; i <= right; i++) {
-        ans += nums[i];
+    // 1 2 3 4 5 -> 1 4 2 3 5
+    // cout << (found ? left : -1);
+    if(found) {
+        cout << left;
+    } else {
+        cout << -1;
     }
-
-    cout << ans << '\n';
 
 }
 
@@ -67,7 +73,7 @@ int main() {
     ios::sync_with_stdio(false);
     cin.tie(nullptr);
     int t = 1;
-    cin >> t;
+    // cin >> t;
 
     while(t--) {
         solve();
@@ -81,8 +87,6 @@ int main() {
 N - ee shalga
 Bitgii buuj ug
 Сая сая мөрөөдөл минь удахгүй нэг нэгээрэ биелэж эхлэх болно.
-Whatever our souls are made of, hers and mine are the same.
-People aren’t prisoners of fate, they’re prisoners of their own minds.
 Whatever happened, Whatever was, Whatever you endured,
 Whatever changed — You can do it, you will improve.
 */
