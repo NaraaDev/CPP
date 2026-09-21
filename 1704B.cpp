@@ -47,12 +47,18 @@ void solve()
         cin >> nums[i];
     }
 
-    int ans = 0;
+    sort(nums.begin(), nums.end());
 
-    for (int i = 0; i < n - 1; i++)
+    int ans = 0;
+    int pos = n;
+    for (int i = 0; i < pos; i++)
     {
-        if (abs(nums[i] - nums[i - 1]) > x * 2)
+        auto it = lower_bound(nums.begin(), nums.begin() + pos, nums[i] + x * 2);
+        if (it != nums.end() && *it < pos)
+        {
             ans++;
+            pos = *it;
+        }
     }
 
     cout << ans << '\n';

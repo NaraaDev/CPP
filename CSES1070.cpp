@@ -36,26 +36,34 @@ void solve()
 {
 
     int n;
-    ll x;
+    cin >> n;
 
-    cin >> n >> x;
-
-    vector<ll> nums(n);
-
-    for (int i = 0; i < n; i++)
+    if (n == 2 || n == 3)
     {
-        cin >> nums[i];
+        cout << "NO SOLUTION\n";
+        return;
     }
 
-    int ans = 0;
-
-    for (int i = 0; i < n - 1; i++)
+    if (n == 1)
     {
-        if (abs(nums[i] - nums[i - 1]) > x * 2)
-            ans++;
+        cout << "1\n";
+        return;
     }
 
-    cout << ans << '\n';
+    vector<int> odd, even;
+
+    for (int i = 1; i <= n; i++)
+    {
+        if (i & 1)
+            odd.pb(i);
+        else
+            even.pb(i);
+    }
+
+    for (int i : even)
+        cout << i << ' ';
+    for (int i : odd)
+        cout << i << ' ';
 }
 
 int main()
@@ -64,7 +72,7 @@ int main()
     ios::sync_with_stdio(false);
     cin.tie(nullptr);
     int t = 1;
-    cin >> t;
+    // cin >> t;
 
     while (t--)
     {
