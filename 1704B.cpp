@@ -35,29 +35,31 @@ ll binpow(ll a, ll b)
 void solve()
 {
 
-    int n;
-    ll x;
-
+    ll n, x;
     cin >> n >> x;
 
     vector<ll> nums(n);
 
-    for (int i = 0; i < n; i++)
-    {
-        cin >> nums[i];
-    }
+    for (auto &p : nums)
+        cin >> p;
 
-    sort(nums.begin(), nums.end());
+    ll l = 0, r = 0;
+    ll ans = 0;
+    l = x > nums[0] ? x : nums[0] - x;
+    r = nums[0] + x;
 
-    int ans = 0;
-    int pos = n;
-    for (int i = 0; i < pos; i++)
+    for (int i = 1; i < n; i++)
     {
-        auto it = lower_bound(nums.begin(), nums.begin() + pos, nums[i] + x * 2);
-        if (it != nums.end() && *it < pos)
+        if (nums[i] - x > r || nums[i] + x < l)
         {
             ans++;
-            pos = *it;
+            l = x > nums[i] ? 0 : nums[i] - x;
+            r = nums[i] + x;
+        }
+        else
+        {
+            l = max(x > nums[i] ? 0 : nums[i] - x, l);
+            r = min(nums[i] + x, r);
         }
     }
 
