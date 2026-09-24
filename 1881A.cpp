@@ -1,5 +1,4 @@
-#include<bits/stdc++.h>
-
+#include <bits/stdc++.h>
 
 #define ll long long
 #define ff first
@@ -9,19 +8,22 @@
 
 using namespace std;
 
-
-ll gcd(ll a, ll b) {
+ll gcd(ll a, ll b)
+{
     if (b == 0)
         return a;
     return gcd(b, a % b);
 }
 
-ll binpow(ll a, ll b) {
+ll binpow(ll a, ll b)
+{
 
     ll res = 1;
 
-    while(b > 0) {
-        if(b & 1) {
+    while (b > 0)
+    {
+        if (b & 1)
+        {
             res = res * a;
         }
         a = a * a;
@@ -30,25 +32,44 @@ ll binpow(ll a, ll b) {
     return res;
 }
 
-void solve() {
+void solve()
+{
 
-    
+    int n, m;
+    cin >> n >> m;
 
+    string s, s1;
+    cin >> s >> s1;
+
+    int cnt = 0;
+    bool found = false;
+    while (s.length() < s1.length() * 100)
+    {
+        if (s.find(s1) != string::npos)
+        {
+            found = true;
+            break;
+        }
+        cnt++;
+        s += s;
+    }
+    cout << (found ? cnt : -1) << '\n';
 }
 
-int main() {
+int main()
+{
 
     ios::sync_with_stdio(false);
     cin.tie(nullptr);
     int t = 1;
     cin >> t;
 
-    while(t--) {
+    while (t--)
+    {
         solve();
     }
 
     return 0;
-
 }
 
 /*
