@@ -58,4 +58,5 @@ Bitgii buuj ug
 Сая сая мөрөөдөл минь удахгүй нэг нэгээрэ биелэж эхлэх болно.
 Whatever happened, Whatever was, Whatever you endured,
 Whatever changed — You can do it, you will improve.
+Hoorhon nomio Zarimdaa aashtai nomio
 */
