@@ -35,27 +35,19 @@ ll binpow(ll a, ll b)
 void solve()
 {
 
-    int n;
-    ll x;
+    // stack, queue, vector, set, map, multiset
 
-    cin >> n >> x;
+    vector<int> v = {20, 5, 70, 10, 10, 20, 30, 40, 50};
+    // auto mid = v.begin() + 2;
+    nth_element(v.begin(), v.begin() + 2, v.end(), greater<int>());
+    cout << v[2] << '\n';
+    // auto it = upper_bound(v.begin(), v.end(), 10);
+    // priority_queue<int> pq;
 
-    vector<ll> nums(n);
+    // cout << m. << '\n';
+    // cout << *it << '\n';
 
-    for (int i = 0; i < n; i++)
-    {
-        cin >> nums[i];
-    }
-
-    int ans = 0;
-
-    for (int i = 0; i < n - 1; i++)
-    {
-        if (abs(nums[i] - nums[i - 1]) > x * 2)
-            ans++;
-    }
-
-    cout << ans << '\n';
+    // cout << ms.size() << '\n';
 }
 
 int main()
@@ -80,4 +72,5 @@ Bitgii buuj ug
 Сая сая мөрөөдөл минь удахгүй нэг нэгээрэ биелэж эхлэх болно.
 Whatever happened, Whatever was, Whatever you endured,
 Whatever changed — You can do it, you will improve.
+Hoorhon nomio Zarimdaa aashtai nomio nebula
 */
