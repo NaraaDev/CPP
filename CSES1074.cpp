@@ -1,54 +1,93 @@
-#include<bits/stdc++.h>
+#include <bits/stdc++.h>
 
 #define ll long long
-#define F first
-#define S second
+#define ff first
+#define ss second
 #define mp make_pair
 #define pb push_back
 
+using namespace std;
 
 ll gcd(ll a, ll b)
 {
-    if (a == 0)
-        return b;
     if (b == 0)
         return a;
- 
-    if (a == b)
-        return a;
- 
-    if (a > b)
-        return gcd(a - b, b);
-    return gcd(a, b - a);
+    return gcd(b, a % b);
 }
 
-using namespace std;
+ll binpow(ll a, ll b)
+{
 
-int main() {
+    ll res = 1;
 
-    ios::sync_with_stdio(false);
-    cin.tie(0);
-    
+    while (b > 0)
+    {
+        if (b & 1)
+        {
+            res = res * a;
+        }
+        a = a * a;
+        b /= 2;
+    }
+    return res;
+}
+
+void solve()
+{
+
     int n;
     cin >> n;
 
-    ll sticks[n];
+    vector<int> nums(n);
+    for (int i = 0; i < n; i++)
+        cin >> nums[i];
 
-    ll ans = 0;
+    sort(nums.begin(), nums.end());
 
+    if (n == 1)
+    {
+        cout << 0 << '\n';
+        return;
+    }
 
-    for(int i = 0; i < n; i++)
-        cin >> sticks[i];
+    if (n == 2)
+    {
+        cout << nums[1] - nums[0] << '\n';
+        return;
+    }
 
-    sort(sticks, sticks + n);
+    ll ans = 0, ans1 = 0;
+    int mid = n / 2;
+    for (int i = 0; i < n; i++)
+    {
+        ans += abs(nums[i] - nums[mid]);
+        ans1 += abs(nums[i] - nums[mid - 1]);
+    }
 
-    for(int i = 0; i < n; i++)
-        ans += abs(sticks[n / 2] - sticks[i]);
+    cout << min(ans, ans1);
+}
 
-    cout << ans;
+int main()
+{
+
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+    int t = 1;
+    // cin >> t;
+
+    while (t--)
+    {
+        solve();
+    }
+
+    return 0;
 }
 
 /*
-RILY <3
-NEVER GIVE UP!!!
+N - ee shalga
+Bitgii buuj ug
+Сая сая мөрөөдөл минь удахгүй нэг нэгээрэ биелэж эхлэх болно.
+Whatever happened, Whatever was, Whatever you endured,
+Whatever changed — You can do it, you will improve.
+Hoorhon nomio Zarimdaa aashtai nomio nebula
 */
