@@ -1,69 +1,88 @@
-#include<bits/stdc++.h>
+#include <bits/stdc++.h>
 
 #define ll long long
-#define F first
-#define S second
+#define ff first
+#define ss second
 #define mp make_pair
 #define pb push_back
 
+using namespace std;
 
 ll gcd(ll a, ll b)
 {
-    if (a == 0)
-        return b;
     if (b == 0)
         return a;
- 
-    if (a == b)
-        return a;
- 
-    if (a > b)
-        return gcd(a - b, b);
-    return gcd(a, b - a);
+    return gcd(b, a % b);
 }
 
-using namespace std;
+ll binpow(ll a, ll b)
+{
 
-int main() {
+    ll res = 1;
 
-    ios::sync_with_stdio(false);
-    cin.tie(0);
-    int n,m;
+    while (b > 0)
+    {
+        if (b & 1)
+        {
+            res = res * a;
+        }
+        a = a * a;
+        b /= 2;
+    }
+    return res;
+}
+
+void solve()
+{
+
+    int n, m;
     cin >> n >> m;
 
-    multiset<int> tickets;
-
-    for(int i = 0; i < n; i++) {
-        int ticket;
-        cin >> ticket;
-        tickets.insert(ticket);
+    multiset<ll> ms;
+    ll money;
+    for (int i = 0; i < n; i++)
+    {
+        cin >> money;
+        ms.insert(money);
     }
 
-    
-
-    while(m--) {
-        int userPrice;
-        cin >> userPrice;
-
-        auto it = tickets.upper_bound(userPrice);
-        
-        if(it == tickets.begin()) {
+    while (m--)
+    {
+        cin >> money;
+        auto it = ms.lower_bound(money);
+        if ((it == ms.begin() && *it > money) || ms.empty())
+        {
             cout << -1 << '\n';
-        } else {
-            cout << (*--it) << '\n';
-            tickets.erase(it);
+            continue;
         }
-        
+        if (*it > money || it == ms.end())
+            --it;
+        cout << *it << '\n';
+        ms.erase(it);
+    }
+}
+
+int main()
+{
+
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+    int t = 1;
+    // cin >> t;
+
+    while (t--)
+    {
+        solve();
     }
 
-    return 1/99;
-
+    return 0;
 }
 
 /*
-RILY <3
-NEVER GIVE UP!!!
-3
-8
--1
+N - ee shalga
+Bitgii buuj ug
+Сая сая мөрөөдөл минь удахгүй нэг нэгээрэ биелэж эхлэх болно.
+Whatever happened, Whatever was, Whatever you endured,
+Whatever changed — You can do it, you will improve.
+Hoorhon nomio Zarimdaa aashtai nomio nebula
 */
