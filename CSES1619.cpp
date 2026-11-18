@@ -1,65 +1,87 @@
-#include<bits/stdc++.h>
+#include <bits/stdc++.h>
 
 #define ll long long
-#define F first
-#define S second
+#define ff first
+#define ss second
 #define mp make_pair
 #define pb push_back
 
+using namespace std;
 
 ll gcd(ll a, ll b)
 {
-    if (a == 0)
-        return b;
     if (b == 0)
         return a;
- 
-    if (a == b)
-        return a;
- 
-    if (a > b)
-        return gcd(a - b, b);
-    return gcd(a, b - a);
+    return gcd(b, a % b);
 }
 
-using namespace std;
+ll binpow(ll a, ll b)
+{
 
-int main() {
+    ll res = 1;
 
-    ios::sync_with_stdio(false);
-    cin.tie(0);
+    while (b > 0)
+    {
+        if (b & 1)
+        {
+            res = res * a;
+        }
+        a = a * a;
+        b /= 2;
+    }
+    return res;
+}
 
+void solve()
+{
 
     int n;
     cin >> n;
 
-    vector<pair<int,int> > v;
-
-    for(int i = 0; i < n; i++) {
-        int s, e;
+    vector<pair<ll, ll>> nums;
+    ll s, e;
+    for (int i = 0; i < n; i++)
+    {
         cin >> s >> e;
-        v.pb(mp(s, 1));
-        v.pb(mp(e, -1));
+        nums.pb(mp(s, 1));
+        nums.pb(mp(e, -1));
     }
 
-    sort(v.begin(), v.end());
+    sort(nums.begin(), nums.end());
 
+    ll cur = 0;
+    ll ans = 0;
 
-    int cur = 0, ans = 0;
-
-    for(int i = 0; i < v.size(); i++) {
-        cur += v[i].S;
-        ans = max(ans, cur);
+    for (int i = 0; i < nums.size(); i++)
+    {
+        cur += nums[i].ss;
+        ans = max(cur, ans);
     }
 
     cout << ans << '\n';
+}
+
+int main()
+{
+
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+    int t = 1;
+    // cin >> t;
+
+    while (t--)
+    {
+        solve();
+    }
 
     return 0;
-
 }
 
 /*
-RILY <3
-NEVER GIVE UP!!!
-2
+N - ee shalga
+Bitgii buuj ug
+Сая сая мөрөөдөл минь удахгүй нэг нэгээрэ биелэж эхлэх болно.
+Whatever happened, Whatever was, Whatever you endured,
+Whatever changed — You can do it, you will improve.
+Hoorhon nomio Zarimdaa aashtai nomio nebula
 */
