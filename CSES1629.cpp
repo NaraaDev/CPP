@@ -1,68 +1,91 @@
-#include<bits/stdc++.h>
+#include <bits/stdc++.h>
 
 #define ll long long
-#define F first
-#define S second
+#define ff first
+#define ss second
 #define mp make_pair
 #define pb push_back
 
+using namespace std;
 
 ll gcd(ll a, ll b)
 {
-    if (a == 0)
-        return b;
     if (b == 0)
         return a;
- 
-    if (a == b)
-        return a;
- 
-    if (a > b)
-        return gcd(a - b, b);
-    return gcd(a, b - a);
+    return gcd(b, a % b);
 }
 
-using namespace std;
+ll binpow(ll a, ll b)
+{
 
-int main() {
+    ll res = 1;
 
-    ios::sync_with_stdio(false);
-    cin.tie(0);
-    
+    while (b > 0)
+    {
+        if (b & 1)
+        {
+            res = res * a;
+        }
+        a = a * a;
+        b /= 2;
+    }
+    return res;
+}
+
+void solve()
+{
+
     int n;
     cin >> n;
 
-    vector<pair<int,int> > v;
+    vector<pair<int, int>> nums(n);
 
-    for(int i = 0; i < n; i++) {
-        int s, e;
-        cin >> s >> e;
-        v.pb(mp(s, e));
-        
-    }
+    for (int i = 0; i < n; i++)
+        cin >> nums[i].ff >> nums[i].ss;
 
-    sort(v.begin(), v.end());
+    sort(nums.begin(), nums.end(), [](auto a, auto b)
+         {
+        if(a.ss == b.ss) {
+            return a.ff > b.ff;
+        }
+        return a.ss < b.ss; });
 
     int ans = 1;
+    int r = nums[0].ss;
 
-    int em = v[0].S;
-    for(int i = 1; i < n; i++) {
-        if(v[i].F < em) {
-            em = min(em, v[i].S);
-        } else{
+    for (int i = 1; i < n; i++)
+    {
+        if (r <= nums[i].ff)
+        {
+            r = nums[i].ss;
             ans++;
-            em = v[i].S;
         }
     }
 
+    cout << ans << '\n';
+}
 
-    cout << ans;
+int main()
+{
+
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+    int t = 1;
+    // cin >> t;
+
+    while (t--)
+    {
+        solve();
+    }
 
     return 0;
-
 }
 
 /*
-RILY <3
-NEVER GIVE UP!!!
+N - ee shalga
+Bitgii buuj ug
+Сая сая мөрөөдөл минь удахгүй нэг нэгээрэ биелэж эхлэх болно.
+Whatever happened, Whatever was, Whatever you endured,
+Whatever changed — You can do it, you will improve.
+Hoorhon nomio Zarimdaa aashtai nomio nebula
 */
